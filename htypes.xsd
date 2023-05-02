@@ -3,9 +3,9 @@
   <!--=======================================================-->
   <!--============= Message Header Definition  ==============-->
   <!--=======================================================-->
-  <xs:include schemaLocation="doc.xsd" />
-  <xs:include schemaLocation="tcl.xsd" />
-  <xs:include schemaLocation="stypes.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/doc.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/tcl.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/stypes.xsd" />
   <xs:group name="MESSAGE">
     <xs:annotation>
       <xs:documentation>Used by all messages</xs:documentation>
