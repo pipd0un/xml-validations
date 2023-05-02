@@ -10,9 +10,9 @@
   <!--================================================================================-->
   <!--===== Includes                                                                  -->
   <!--================================================================================-->
-  <xs:include schemaLocation="doc.xsd" />
-  <xs:include schemaLocation="stypes.xsd" />
-  <xs:include schemaLocation="tcl.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/doc.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/stypes.xsd" />
+  <xs:include schemaLocation="https://raw.githubusercontent.com/pipd0un/xml-validations/main/tcl.xsd" />
   <!--================================================================================-->
   <!--===== Data Group Types                                                          -->
   <!--================================================================================-->
