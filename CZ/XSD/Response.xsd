@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cs.mfcr.cz/schemas/COMINHub/Response1_0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:extimp="http://www.cs.mfcr.cz/schemas/EcrObalka/V_2.0" xmlns:extimp1="http://www.cs.mfcr.cz/schemas/EcrEnvelope/V_3.0" xmlns="http://www.cs.mfcr.cz/schemas/COMINHub/Response1_0">
+  <xs:import schemaLocation=".\EcrObalka.xsd" namespace="http://www.cs.mfcr.cz/schemas/EcrObalka/V_2.0" />
+  <xs:import schemaLocation=".\EcrEnvelope.xsd" namespace="http://www.cs.mfcr.cz/schemas/EcrEnvelope/V_3.0" />
+  <xs:annotation>
+    <xs:documentation>COMIN HUB response</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="Response_Error_Code">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="9999" />
+      <xs:enumeration value="1" />
+      <xs:enumeration value="10" />
+      <xs:enumeration value="20" />
+      <xs:enumeration value="21" />
+      <xs:enumeration value="30" />
+      <xs:enumeration value="40" />
+      <xs:enumeration value="50" />
+      <xs:enumeration value="51" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Error_Description">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1000" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Response_Error">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Code" type="Response_Error_Code">
+        <xs:annotation>
+          <xs:documentation>Error code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Description" type="Response_Error_Description">
+        <xs:annotation>
+          <xs:documentation>Error description</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Response_Messages_Message_GUID">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Messages_Message_Domain">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Messages_Message_Type">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="200" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Messages_Message_MainID">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="80" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Messages_Message_SecondaryID">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="80" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_Messages_Message_Status">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="100" />
+      <xs:enumeration value="ToDownload" />
+      <xs:enumeration value="ToConfirm" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Response_Messages_Message">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="GUID" type="Response_Messages_Message_GUID">
+        <xs:annotation>
+          <xs:documentation>Message GUID - The value of attribute EnvelopeGuid from element Header in ECR envelope</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Domain" type="Response_Messages_Message_Domain">
+        <xs:annotation>
+          <xs:documentation>ECR Domain - The value of attribute Domain from element Header in ECR envelope</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Type" type="Response_Messages_Message_Type">
+        <xs:annotation>
+          <xs:documentation>Message type - The value of attribute Type from element MessageMetadata in ECR envelope</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="MainID" type="Response_Messages_Message_MainID">
+        <xs:annotation>
+          <xs:documentation>Main ID - The value of attribute PrimaryID from element MessageMetadata in ECR envelope</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="SecondaryID" type="Response_Messages_Message_SecondaryID">
+        <xs:annotation>
+          <xs:documentation>Secondary ID - The value of attribute SecondaryID from element MessageMetadata in ECR envelope</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Status" type="Response_Messages_Message_Status">
+        <xs:annotation>
+          <xs:documentation>Message status</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Response_Messages">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="999" name="Message" type="Response_Messages_Message">
+        <xs:annotation>
+          <xs:documentation>Message</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Response_PollInfo_NextPollIn">
+    <xs:restriction base="xs:unsignedShort">
+      <xs:minInclusive value="1" />
+      <xs:maxInclusive value="10000" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_PollInfo_Unavailability_From">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9 ]+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_PollInfo_Unavailability_Until">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9 ]+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_PollInfo_Unavailability_Description">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1000" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Response_PollInfo_Unavailability_Type">
+    <xs:restriction base="xs:unsignedByte">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Response_PollInfo_Unavailability">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="From" type="Response_PollInfo_Unavailability_From">
+        <xs:annotation>
+          <xs:documentation>From</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Until" type="Response_PollInfo_Unavailability_Until">
+        <xs:annotation>
+          <xs:documentation>Until</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Description" type="Response_PollInfo_Unavailability_Description">
+        <xs:annotation>
+          <xs:documentation>Description</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Type" type="Response_PollInfo_Unavailability_Type">
+        <xs:annotation>
+          <xs:documentation>Unavailability type</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Response_PollInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="NextPollIn" type="Response_PollInfo_NextPollIn">
+        <xs:annotation>
+          <xs:documentation>Minimal time interval in seconds till next poll operation</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="999" name="Unavailability" type="Response_PollInfo_Unavailability">
+        <xs:annotation>
+          <xs:documentation>Planned unavailability of COMIN Hub</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Response_OperationSuccessfull">
+    <xs:restriction base="xs:boolean">
+      <xs:pattern value="1|0" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Error" type="Response_Error">
+        <xs:annotation>
+          <xs:documentation>Error</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Messages" type="Response_Messages">
+        <xs:annotation>
+          <xs:documentation>Messages available for delivery</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="PollInfo" type="Response_PollInfo">
+        <xs:annotation>
+          <xs:documentation>Poll information</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="OperationSuccessfull" type="Response_OperationSuccessfull">
+        <xs:annotation>
+          <xs:documentation>Indication of successfull operation</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:group minOccurs="0" maxOccurs="1" ref="extimp:Response_EcrObalka" />
+      <xs:group minOccurs="0" maxOccurs="1" ref="extimp1:Response_EcrEnvelope" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Response" type="Response">
+    <xs:annotation>
+      <xs:documentation>COMIN HUB response</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

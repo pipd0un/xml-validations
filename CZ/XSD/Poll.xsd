@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.cs.mfcr.cz/schemas/COMINHub/Poll1_0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.cs.mfcr.cz/schemas/COMINHub/Poll1_0">
+  <xs:annotation>
+    <xs:documentation>Poll available messages</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="Poll_Authorization_CommunicationID">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="80" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Poll_Authorization_Password">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="80" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Poll_Authorization">
+    <xs:sequence minOccurs="0" />
+    <xs:attribute name="CommunicationID" type="Poll_Authorization_CommunicationID" use="required">
+      <xs:annotation>
+        <xs:documentation>Communication authorization ID</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Password" type="Poll_Authorization_Password" use="required">
+      <xs:annotation>
+        <xs:documentation>Password</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="Poll_ClientApplication_Identification">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="1000" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Poll_ClientApplication_Version">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="100" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="Poll_ClientApplication_Language">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="2" />
+      <xs:maxLength value="2" />
+      <xs:enumeration value="CS" />
+      <xs:enumeration value="EN" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Poll_ClientApplication">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Identification" type="Poll_ClientApplication_Identification">
+        <xs:annotation>
+          <xs:documentation>Client application identification</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="Version" type="Poll_ClientApplication_Version">
+        <xs:annotation>
+          <xs:documentation>Client application version</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Language" type="Poll_ClientApplication_Language">
+        <xs:annotation>
+          <xs:documentation>Client application language - If element is not provided, default value CS is used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="Poll_Domain">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1" />
+      <xs:maxLength value="50" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Poll">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Authorization" type="Poll_Authorization">
+        <xs:annotation>
+          <xs:documentation>Authorization</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" maxOccurs="1" name="ClientApplication" type="Poll_ClientApplication">
+        <xs:annotation>
+          <xs:documentation>Client application</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" maxOccurs="1" name="Domain" type="Poll_Domain">
+        <xs:annotation>
+          <xs:documentation>ECR Domain - Value of attribute Domain from Header element of ECR envelope. If this element will be present, the returned list of messages will be restricted to messages from this domain.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Poll" type="Poll">
+    <xs:annotation>
+      <xs:documentation>Poll available messages</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

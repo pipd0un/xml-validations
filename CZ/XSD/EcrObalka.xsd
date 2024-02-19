@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" targetNamespace="http://www.cs.mfcr.cz/schemas/EcrObalka/V_2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.cs.mfcr.cz/schemas/EcrObalka/V_2.0">
+  <xs:group name="Response_EcrObalka">
+    <xs:annotation>
+      <xs:appinfo>
+        <cds:Info cds:RewritedElement="EcrObalka" cds:RewritedElementQualified="http://www.cs.mfcr.cz/schemas/EcrObalka/V_2.0:EcrObalka" xmlns:cds="http://www.cs.mfcr.cz/Schemas/CDS/Template" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="EcrObalka">
+        <xs:annotation>
+          <xs:appinfo>
+            <cds:Info cds:RewritedElement="1" xmlns:cds="http://www.cs.mfcr.cz/Schemas/CDS/Template" />
+          </xs:appinfo>
+          <xs:documentation>ECR obálka (pro odpověď na operaci GET)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Hlavicka">
+              <xs:complexType>
+                <xs:attribute name="GuidObalky" type="uuid" use="required" />
+                <xs:attribute name="VerzeObalky" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="10" />
+                      <xs:minLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="Domena" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="20" />
+                      <xs:minLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="Zprava">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="Atributy">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Atribut">
+                          <xs:complexType>
+                            <xs:attribute name="Nazev" use="required">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="20" />
+                                  <xs:minLength value="1" />
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                            <xs:attribute name="Hodnota" use="required">
+                              <xs:simpleType>
+                                <xs:restriction base="xs:string">
+                                  <xs:maxLength value="256" />
+                                </xs:restriction>
+                              </xs:simpleType>
+                            </xs:attribute>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+                <xs:attribute name="Typ" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="30" />
+                      <xs:minLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="HlavniID" use="optional">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                      <xs:minLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="VedlejsiID" use="optional">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:maxLength value="40" />
+                      <xs:minLength value="1" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" maxOccurs="1" name="Ucastnici">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" maxOccurs="unbounded" name="Ucastnik">
+                    <xs:complexType>
+                      <xs:attribute name="Role" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="20" />
+                            <xs:minLength value="1" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="Identifikator" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="40" />
+                            <xs:minLength value="1" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="GuidScenare" type="uuid" use="optional" />
+                      <xs:attribute name="DatumCas" type="xs:dateTime" use="optional" />
+                      <xs:attribute name="AplikaceID" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="50" />
+                            <xs:minLength value="1" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="AplikaceVerze" use="optional">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="20" />
+                            <xs:minLength value="1" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="RozsireneInformace">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="Atribut">
+                    <xs:complexType>
+                      <xs:attribute name="Nazev" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="20" />
+                            <xs:minLength value="1" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                      <xs:attribute name="Hodnota" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:maxLength value="256" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:choice minOccurs="1" maxOccurs="1">
+              <xs:element minOccurs="0" maxOccurs="1" name="SmimeZprava" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="XmlZprava">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:any minOccurs="1" maxOccurs="2" processContents="skip" />
+                  </xs:sequence>
+                  <xs:attribute name="SignatureContext" use="optional">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="envelope" />
+                        <xs:enumeration value="datacontent" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="BinarniZprava">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:any minOccurs="1" maxOccurs="2" processContents="skip" />
+                  </xs:sequence>
+                  <xs:attribute name="SignatureContext" use="optional">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:enumeration value="envelope" />
+                        <xs:enumeration value="datacontent" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:attribute>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+            <xs:element minOccurs="0" maxOccurs="1" name="Chyba">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:any minOccurs="1" maxOccurs="2" processContents="skip" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:group>
+  <xs:simpleType name="uuid">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9A-Fa-f]{8}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{4}\-?[0-9A-Fa-f]{12}" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
